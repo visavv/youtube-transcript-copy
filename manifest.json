@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Transcript Copy",
+  "version": "1.3.0",
+  "description": "Copy a YouTube video's full transcript in one click, from a button under the video or a hotkey. Great for AI summaries and titles.",
+  "permissions": ["storage", "clipboardWrite", "activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Transcript Copy settings",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "copy-transcript": {
+      "suggested_key": { "default": "Alt+Shift+C" },
+      "description": "Copy the current video's transcript"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

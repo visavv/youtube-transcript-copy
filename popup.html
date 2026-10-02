@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        width: 270px;
+        margin: 0;
+        padding: 14px 16px 16px;
+        font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+        font-size: 13px;
+        color: #0f0f0f;
+        background: #fff;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      h1 .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        background: #ff0000;
+        flex: none;
+      }
+      .copy-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        box-sizing: border-box;
+        height: 38px;
+        margin: 0 0 6px;
+        padding: 0 12px;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        background: #ff0000;
+        color: #fff;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .copy-btn:hover {
+        filter: brightness(0.93);
+      }
+      .copy-btn:active {
+        filter: brightness(0.85);
+      }
+      .copy-btn[disabled] {
+        opacity: 0.7;
+        cursor: default;
+      }
+      .copy-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+      }
+      .copy-status {
+        min-height: 15px;
+        margin: 0 0 10px;
+        font-size: 12px;
+        line-height: 1.3;
+        text-align: center;
+        color: #1a8d3a;
+      }
+      .copy-status.err {
+        color: #d33;
+      }
+      label.row {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 7px 0;
+        cursor: pointer;
+      }
+      label.row input {
+        margin: 1px 0 0;
+        flex: none;
+      }
+      .opt-text {
+        line-height: 1.35;
+      }
+      .opt-sub {
+        color: #606060;
+        font-size: 12px;
+      }
+      .hint {
+        margin: 12px 0 0;
+        padding-top: 10px;
+        border-top: 1px solid #e5e5e5;
+        color: #606060;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      .support {
+        margin: 10px 0 0;
+        text-align: center;
+      }
+      .support a {
+        color: #c5221f;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .support a:hover {
+        text-decoration: underline;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          color: #f1f1f1;
+          background: #212121;
+        }
+        .opt-sub,
+        .hint {
+          color: #aaa;
+        }
+        .hint {
+          border-top-color: #383838;
+        }
+        .support a {
+          color: #f28b82;
+        }
+        .copy-status {
+          color: #5edc7e;
+        }
+        .copy-status.err {
+          color: #ff8a8a;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1><span class="dot"></span>Transcript Copy</h1>
+
+    <button id="copyBtn" class="copy-btn" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z" />
+      </svg>
+      Copy transcript
+    </button>
+    <div id="copyStatus" class="copy-status" role="status" aria-live="polite"></div>
+
+    <label class="row">
+      <input type="checkbox" id="includeTimestamps" />
+      <span class="opt-text">Include timestamps<br /><span class="opt-sub">e.g. "0:42 ..." on each line</span></span>
+    </label>
+
+    <label class="row">
+      <input type="checkbox" id="oneLinePerCaption" />
+      <span class="opt-text">One line per caption<br /><span class="opt-sub">Otherwise: a single clean paragraph</span></span>
+    </label>
+
+    <label class="row">
+      <input type="checkbox" id="includeChapters" />
+      <span class="opt-text">Chapter headings<br /><span class="opt-sub">Section titles, when the video has chapters</span></span>
+    </label>
+
+    <label class="row">
+      <input type="checkbox" id="includeHeader" />
+      <span class="opt-text">Add video info<br /><span class="opt-sub">Title, channel, link, views, date</span></span>
+    </label>
+
+    <p class="hint">
+      Also copy with the <b>Copy transcript</b> button under any video or the
+      <b>Copy</b> button in the transcript panel.<br />
+      Keyboard shortcut: <b id="shortcutKey">Alt+Shift+C</b>.
+      <span id="shortcutHelp">Change it at <b>chrome://extensions/shortcuts</b>.</span>
+    </p>
+
+    <p class="support">
+      <a id="supportLink" href="#" target="_blank" rel="noopener noreferrer"
+        >☕ Support this extension</a
+      >
+    </p>
+
+    <script src="shared.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Transcript Copy regression fixture</title>
+<link rel="stylesheet" href="/content.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 24px; font: 14px Arial; color: #0f0f0f; background: #fff; }
+  main { display: grid; grid-template-columns: minmax(0, 760px) 360px; gap: 24px; }
+  ytd-watch-metadata, ytd-engagement-panel-section-list-renderer, ytd-engagement-panel-title-header-renderer, transcript-segment-view-model, ytd-transcript-renderer { display: block; }
+  #player { background: #181818; color: white; height: 230px; display: grid; place-items: center; }
+  #top-row, #top-level-buttons-computed, ytd-menu-renderer, ytd-engagement-panel-title-header-renderer #header { display: flex; flex-wrap: nowrap; align-items: center; }
+  #top-row { justify-content: space-between; gap: 16px; }
+  #title-container { flex: 1; min-width: 0; }
+  #top-level-buttons-computed { gap: 8px; }
+  #description { background: #eee; padding: 16px; margin-top: 12px; border-radius: 12px; }
+  .native { border: 0; border-radius: 20px; padding: 10px 16px; flex: none; }
+  ytd-engagement-panel-section-list-renderer { border: 1px solid #ccc; border-radius: 12px; padding: 12px; }
+  transcript-segment-view-model { margin-top: 18px; line-height: 1.6; }
+  .ytwTranscriptSegmentViewModelTimestamp { color: #36a; }
+  .ytwTranscriptSegmentViewModelTimestampA11yLabel { position: absolute; clip-path: inset(100%); }
+  [hidden], [visibility="ENGAGEMENT_PANEL_VISIBILITY_HIDDEN"] { display: none !important; }
+  pre { white-space: pre-wrap; padding: 16px; background: #eef5ee; }
+  @media(max-width: 800px) { main { grid-template-columns: minmax(0, 1fr); } }
+  [dark] body { background: #181818; color: #eee; }
+  [dark] #description, [dark] pre { background: #333; }
+</style>
+<h1>Watch-page layout regression fixture</h1>
+<p>Static test markup based on the inspected YouTube watch page. Chrome APIs and clipboard are stubbed.</p>
+<main>
+  <ytd-watch-metadata>
+    <div id="player">Video area</div>
+    <div id="above-the-fold">
+      <h1 class="ytd-watch-metadata"><yt-formatted-string>Test   video</yt-formatted-string></h1>
+      <div id="top-row">
+        <div id="owner"><ytd-channel-name><a>Example channel</a></ytd-channel-name></div>
+        <ytd-menu-renderer><div id="top-level-buttons-computed"><button class="native">Like</button><button class="native">Share</button></div><button class="native">Save</button></ytd-menu-renderer>
+      </div>
+      <div id="bottom-row"><div id="description">
+        <ytd-watch-info-text><span id="view-count" aria-label="1,234 views"><span hidden>01234567890123456789</span>1,234 views</span> Sep 26, 2026</ytd-watch-info-text>
+        <div id="description-inline-expander"><button id="expand">...more</button></div>
+      </div></div>
+    </div>
+  </ytd-watch-metadata>
+  <ytd-engagement-panel-section-list-renderer id="panel" visibility="ENGAGEMENT_PANEL_VISIBILITY_EXPANDED">
+    <ytd-engagement-panel-title-header-renderer><div id="header"><div id="title-container">In this video</div><div id="menu"></div><div id="visibility-button"><button class="native" aria-label="Close">×</button></div></div></ytd-engagement-panel-title-header-renderer>
+    <div id="segments">
+      <transcript-segment-view-model><div class="ytwTranscriptSegmentViewModelTimestamp">0:01</div><div class="ytwTranscriptSegmentViewModelTimestampA11yLabel">1 second</div><span role="text">Hello   world.</span></transcript-segment-view-model>
+      <transcript-segment-view-model><div class="ytwTranscriptSegmentViewModelTimestamp">0:07</div><div class="ytwTranscriptSegmentViewModelTimestampA11yLabel">7 seconds</div><span role="text"> Meet\n the elephants.</span></transcript-segment-view-model>
+    </div>
+  </ytd-engagement-panel-section-list-renderer>
+</main>
+<pre id="results" role="status">Running regression checks…</pre>
+<script>
+  window.settings = {};
+  window.copiedText = '';
+  window.chrome = {storage:{sync:{get:(defaults, callback)=>callback({...defaults,...window.settings})}},runtime:{id:'fixture',onMessage:{addListener:()=>{}}}};
+  Object.defineProperty(navigator, 'clipboard', {configurable:true,value:{writeText:async text=>{window.copiedText=text;}}});
+</script>
+<script src="/test-content.js"></script>
+<script src="/tests/fixture.js"></script>
+</html>

@@ -1,0 +1,15 @@
+# Build output (attach zips to GitHub releases instead)
+dist/
+
+# Local-only notes and Web Store marketing material
+STORE_LISTING.md
+REVIEW.md
+store-assets/
+make_store_assets.py
+
+# Tooling
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+Thumbs.db
