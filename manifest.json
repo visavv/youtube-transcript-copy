@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YouTube Transcript Copy",
   "version": "1.3.0",
-  "description": "Copy a YouTube video's full transcript in one click, from a button under the video or a hotkey. Great for AI summaries and titles.",
+  "description": "Copy a YouTube video's full transcript in one click, from a button under the video or a keyboard shortcut.",
   "permissions": ["storage", "clipboardWrite", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
